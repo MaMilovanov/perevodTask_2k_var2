@@ -39,3 +39,32 @@ print("Проверка строки [[()]]:", skobki.balance("[[()]]"))
 print("Проверка строки ([]):", skobki.balance("([])"))
 print("Проверка строки ([)] :", skobki.balance("([)]"))
 print("Проверка строки ((()):", skobki.balance("((())"))
+class UTest(unittest.TestCase): #юнитест, тесты правильные.неправильные
+
+    def test_simplePair(self):
+        self.assertTrue(skobki.balance("()"))
+
+    def test_textWith(self):
+        self.assertTrue(skobki.balance("a+(b*c)-[d]"))
+
+
+    def test_wrongPoriadok(self):
+        self.assertFalse(skobki.balance("([)]"))
+
+
+    def test_withoutOpen(self):
+        for text in [")", "]", "}"]:
+            with self.subTest(text=text):
+                self.assertFalse(skobki.balance(text))
+
+    def test_unclosed(self):
+        for text in ["(", "[", "{", "(((", "[({"]:
+            with self.subTest(text=text):
+                self.assertFalse(skobki.balance(text))
+
+    def test_wrongType(self):
+        self.assertFalse(skobki.balance("(]"))
+        self.assertFalse(skobki.balance("{)"))
+
+if __name__ == "__main__":
+    unittest.main()
